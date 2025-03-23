@@ -11,7 +11,7 @@ import { toast } from "@/hooks/use-toast"
 import { FaGoogle, FaFacebook } from "react-icons/fa"
 import { signIn } from "next-auth/react"
 
-export default function RegisterForm() {
+export default function RegisterForm({ locale }: { locale: string }) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -71,7 +71,7 @@ export default function RegisterForm() {
         password: formData.password,
       })
 
-      router.push("/")
+      router.push(`/${locale}`)
     } catch (error) {
       console.error("Error al registrar:", error)
       toast({
@@ -87,7 +87,7 @@ export default function RegisterForm() {
   const handleSocialLogin = async (provider: string) => {
     setIsLoading(true)
     try {
-      await signIn(provider, { callbackUrl: "/" })
+      await signIn(provider, { callbackUrl: `/${locale}` })
     } catch (error) {
       console.error(`Error al iniciar sesión con ${provider}:`, error)
       setIsLoading(false)

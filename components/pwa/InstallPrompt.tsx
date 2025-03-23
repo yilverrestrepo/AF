@@ -1,26 +1,18 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Download } from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
 
 export default function InstallPrompt() {
   const [showPrompt, setShowPrompt] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
 
   useEffect(() => {
-    // Verificar si el usuario ya ha instalado la app o ha rechazado la instalación
-    const hasPromptedUser = localStorage.getItem("pwaPromptDismissed")
+    // Verificar si el usuario ya ha instalado la aplicación o ha descartado el prompt
+    const hasPromptBeenShown = localStorage.getItem("pwaPromptShown")
 
-    if (hasPromptedUser) return
+    if (hasPromptBeenShown) return
 
     // Escuchar el evento beforeinstallprompt
     const handleBeforeInstallPrompt = (e: Event) => {
@@ -48,55 +40,50 @@ export default function InstallPrompt() {
     // Esperar a que el usuario responda al prompt
     const choiceResult = await deferredPrompt.userChoice
 
-    // Resetear el deferredPrompt - solo se puede usar una vez
-    setDeferredPrompt(null)
+    // Ocultar nuestro prompt personalizado independientemente de la respuesta
     setShowPrompt(false)
+    setDeferredPrompt(null)
 
-    // Guardar la decisión del usuario
+    // Guardar que el prompt ha sido mostrado
+    localStorage.setItem("pwaPromptShown", "true")
+
+    // Registrar la respuesta del usuario
     if (choiceResult.outcome === "accepted") {
       console.log("Usuario aceptó la instalación")
     } else {
       console.log("Usuario rechazó la instalación")
-      // Guardar en localStorage para no volver a mostrar el prompt
-      localStorage.setItem("pwaPromptDismissed", "true")
     }
   }
 
   const handleDismiss = () => {
     setShowPrompt(false)
-    // Guardar en localStorage para no volver a mostrar el prompt inmediatamente
-    // Podemos establecer un tiempo de espera antes de volver a mostrar
-    localStorage.setItem("pwaPromptDismissed", "true")
+    // Guardar que el usuario ha descartado el prompt
+    localStorage.setItem("pwaPromptShown", "true")
   }
 
   if (!showPrompt) return null
 
   return (
-    <Dialog open={showPrompt} onOpenChange={setShowPrompt}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Instalar FINCAS</DialogTitle>
-          <DialogDescription>
-            Instala nuestra aplicación en tu dispositivo para una mejor experiencia, acceso rápido y funcionalidad
-            offline.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex items-center justify-center py-4">
-          <img src="/icons/icon-192x192.png" alt="FINCAS App" className="w-24 h-24 rounded-xl shadow-md" />
+    <div className="fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg z-50 border-t">
+      <div className="container mx-auto flex items-center justify-between">
+        <div>
+          <h3 className="font-semibold">Instala FINCAS</h3>
+          <p className="text-sm text-gray-600">Añade nuestra app a tu pantalla de inicio para un acceso más rápido</p>
         </div>
-
-        <DialogFooter className="flex flex-col sm:flex-row gap-2">
-          <Button variant="outline" onClick={handleDismiss} className="sm:flex-1">
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={handleDismiss}>
             Ahora no
           </Button>
-          <Button onClick={handleInstall} className="sm:flex-1">
-            <Download className="mr-2 h-4 w-4" />
+          <Button size="sm" onClick={handleInstall}>
             Instalar
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <button onClick={handleDismiss} className="text-gray-500 hover:text-gray-700">
+            <X className="h-5 w-5" />
+            <span className="sr-only">Cerrar</span>
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -11,10 +11,10 @@ import { Label } from "@/components/ui/label"
 import { toast } from "@/hooks/use-toast"
 import { FaGoogle, FaFacebook } from "react-icons/fa"
 
-export default function LoginForm() {
+export default function LoginForm({ locale }: { locale: string }) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get("callbackUrl") || "/"
+  const callbackUrl = searchParams.get("callbackUrl") || `/${locale}`
 
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -121,7 +121,7 @@ export default function LoginForm() {
           <div className="flex items-center justify-between">
             <Label htmlFor="password">Contraseña</Label>
             <Button variant="link" className="p-0 h-auto text-sm" asChild>
-              <a href="/forgot-password">¿Olvidaste tu contraseña?</a>
+              <a href={`/${locale}/forgot-password`}>¿Olvidaste tu contraseña?</a>
             </Button>
           </div>
           <Input

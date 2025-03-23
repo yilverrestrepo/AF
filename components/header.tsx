@@ -1,98 +1,103 @@
-"use client"
-
-import { useState } from "react"
+import { authOptions } from "@/lib/auth"
+import { getServerSession } from "next-auth"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
-import { Menu, X, Home, Search, Heart, MessageSquare } from "lucide-react"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
+import { Button } from "./ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu"
+import LogoutButton from "./LogoutButton"
+import LanguageSwitcher from "./LanguageSwitcher"
+import NotificationsDropdown from "./notifications/NotificationsDropdown"
 
-export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const pathname = usePathname()
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const navItems = [
-    { name: "Inicio", href: "/", icon: Home },
-    { name: "Buscar", href: "/search", icon: Search },
-    { name: "Favoritos", href: "/favorites", icon: Heart },
-    { name: "Mensajes", href: "/messages", icon: MessageSquare },
-  ]
+const Header = async ({ locale }: { locale: string }) => {
+  const session = await getServerSession(authOptions)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold">Fincos</span>
-          </Link>
-        </div>
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === item.href ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+    <header className="bg-white py-4 shadow-sm">
+      <div className="container mx-auto flex items-center justify-between">
+        <Link href={`/${locale}`} className="text-2xl font-bold">
+          FINCAS
+        </Link>
+
+        <nav>
+          <ul className="flex items-center space-x-4">
+            <li>
+              <Link href={`/${locale}/properties`} className="hover:text-gray-500">
+                Propiedades
+              </Link>
+            </li>
+            {session?.user ? (
+              <>
+                <li>
+                  <NotificationsDropdown />
+                </li>
+                <li>
+                  <LanguageSwitcher />
+                </li>
+                <li>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger>
+                      <Avatar>
+                        <AvatarImage src={session.user.image as string} />
+                        <AvatarFallback>{session.user.name?.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuItem asChild>
+                        <Link href={`/${locale}/profile`}>Perfil</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href={`/${locale}/properties/create`}>Publicar propiedad</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      {session?.user && (
+                        <>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/${locale}/messages`}>Mensajes</Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/${locale}/favorites`}>Favoritos</Link>
+                          </DropdownMenuItem>
+
+                          {/* Solo mostrar para anfitriones */}
+                          {session.user.role === "HOST" && (
+                            <DropdownMenuItem asChild>
+                              <Link href={`/${locale}/dashboard/analytics`}>Análisis</Link>
+                            </DropdownMenuItem>
+                          )}
+                        </>
+                      )}
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem>
+                        <LogoutButton locale={locale} />
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <LanguageSwitcher />
+                </li>
+                <li>
+                  <Link href={`/${locale}/login`}>
+                    <Button>Iniciar sesión</Button>
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
         </nav>
-        <div className="flex items-center gap-4">
-          <ModeToggle />
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/login">
-              <Button variant="outline" size="sm">
-                Iniciar sesión
-              </Button>
-            </Link>
-            <Link href="/register">
-              <Button size="sm">Registrarse</Button>
-            </Link>
-          </div>
-          <button className="md:hidden" onClick={toggleMenu} aria-label="Toggle Menu">
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
       </div>
-      {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="container flex flex-col space-y-3 p-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground",
-                )}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.name}
-              </Link>
-            ))}
-            <div className="flex flex-col gap-2 pt-2">
-              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
-                <Button variant="outline" className="w-full">
-                  Iniciar sesión
-                </Button>
-              </Link>
-              <Link href="/register" onClick={() => setIsMenuOpen(false)}>
-                <Button className="w-full">Registrarse</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   )
 }
+
+export default Header
 

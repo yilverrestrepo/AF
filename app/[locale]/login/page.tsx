@@ -17,7 +17,7 @@ export default async function LoginPage({ params }: { params: { locale: string }
       <div className="max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center">Iniciar sesión</h1>
 
-        <LoginForm />
+        <LoginForm locale={params.locale} />
 
         <div className="mt-6 text-center">
           <p className="text-gray-600">

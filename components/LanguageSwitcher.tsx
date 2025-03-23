@@ -4,7 +4,8 @@ import { useState, useTransition } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { locales } from "@/lib/i18n"
+
+const locales = ["es", "en", "fr", "de"]
 
 const languageNames = {
   es: "Español",

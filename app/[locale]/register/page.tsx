@@ -17,7 +17,7 @@ export default async function RegisterPage({ params }: { params: { locale: strin
       <div className="max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center">Crear cuenta</h1>
 
-        <RegisterForm />
+        <RegisterForm locale={params.locale} />
 
         <div className="mt-6 text-center">
           <p className="text-gray-600">
