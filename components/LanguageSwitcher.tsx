@@ -4,7 +4,6 @@ import { useState, useTransition } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Globe } from "lucide-react"
 import { locales } from "@/lib/i18n"
 
 const languageNames = {
@@ -43,7 +42,7 @@ export default function LanguageSwitcher() {
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" disabled={isPending}>
-          <Globe className="h-5 w-5" />
+          <span className="text-lg">🌐</span>
           <span className="sr-only">Cambiar idioma</span>
         </Button>
       </DropdownMenuTrigger>
