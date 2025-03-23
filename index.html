@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINCAS - Plataforma de Alquiler de Propiedades</title>
+    <meta name="description" content="Encuentra y reserva propiedades en alquiler en los mejores destinos">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Fuente Inter de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">FINCAS</a>
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#properties">Propiedades</a></li>
+                        <li><a href="#how-it-works">Cómo funciona</a></li>
+                        <li><a href="#destinations">Destinos</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </nav>
+                <div class="header-buttons">
+                    <button class="btn btn-outline">Iniciar sesión</button>
+                    <button class="btn btn-primary">Registrarse</button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Encuentra tu próximo hogar temporal</h1>
+                        <p>Descubre propiedades únicas para alquilar en los mejores destinos</p>
+                        <div class="hero-buttons">
+                            <a href="#properties" class="btn btn-primary">Explorar propiedades</a>
+                            <a href="#how-it-works" class="btn btn-outline">Saber más</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=800&q=80" alt="Propiedad destacada">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works Section -->
+        <section class="section" id="how-it-works">
+            <div class="container">
+                <h2 class="section-title">Cómo funciona</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Busca</h3>
+                        <p>Explora nuestra selección de propiedades y encuentra la que mejor se adapte a tus necesidades.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Reserva</h3>
+                        <p>Selecciona las fechas y realiza tu reserva de forma segura a través de nuestra plataforma.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Disfruta</h3>
+                        <p>Recibe las llaves y disfruta de tu estancia con la tranquilidad de nuestro soporte 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Properties Section -->
+        <section class="section" id="properties">
+            <div class="container">
+                <h2 class="section-title">Propiedades destacadas</h2>
+                <div class="properties">
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&w=500&q=80" alt="Apartamento con vistas al mar">
+                            <span class="property-badge">Destacado</span>
+                        </div>
+                        <div class="property-content">
+                            <h3>Apartamento con vistas al mar</h3>
+                            <p class="property-location"><i class="fas fa-map-marker-alt"></i> Barcelona, España</p>
+                            <div class="property-features">
+                                <span><i class="fas fa-bed"></i> 2 hab.</span>
+                                <span><i class="fas fa-bath"></i> 1 baño</span>
+                                <span><i class="fas fa-user"></i> Máx. 4 huéspedes</span>
+                            </div>
+                            <div class="property-price">
+                                <span>120€</span> noche
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&w=500&q=80" alt="Villa de lujo con piscina privada">
+                        </div>
+                        <div class="property-content">
+                            <h3>Villa de lujo con piscina privada</h3>
+                            <p class="property-location"><i class="fas fa-map-marker-alt"></i> Marbella, España</p>
+                            <div class="property-features">
+                                <span><i class="fas fa-bed"></i> 4 hab.</span>
+                                <span><i class="fas fa-bath"></i> 3 baños</span>
+                                <span><i class="fas fa-user"></i> Máx. 8 huéspedes</span>
+                            </div>
+                            <div class="property-price">
+                                <span>350€</span> noche
+                            </div>
+                        </div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-image">
+                            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&w=500&q=80" alt="Ático moderno en el centro">
+                            <span class="property-badge">Destacado</span>
+                        </div>
+                        <div class="property-content">
+                            <h3>Ático moderno en el centro</h3>
+                            <p class="property-location"><i class="fas fa-map-marker-alt"></i> Madrid, España</p>
+                            <div class="property-features">
+                                <span><i class="fas fa-bed"></i> 2 hab.</span>
+                                <span><i class="fas fa-bath"></i> 2 baños</span>
+                                <span><i class="fas fa-user"></i> Máx. 4 huéspedes</span>
+                            </div>
+                            <div class="property-price">
+                                <span>180€</span> noche
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-footer">
+                    <a href="#" class="btn btn-outline">Ver más propiedades</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Destinations Section -->
+        <section class="section" id="destinations">
+            <div class="container">
+                <h2 class="section-title">Destinos populares</h2>
+                <div class="destinations">
+                    <a href="#" class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&w=500&q=80" alt="Barcelona">
+                        <div class="destination-overlay">
+                            <h3>Barcelona</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&w=500&q=80" alt="Madrid">
+                        <div class="destination-overlay">
+                            <h3>Madrid</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1558642084-fd07fae5282e?auto=format&w=500&q=80" alt="Valencia">
+                        <div class="destination-overlay">
+                            <h3>Valencia</h3>
+                        </div>
+                    </a>
+                    <a href="#" class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1560703650-ef3e0f254ae0?auto=format&w=500&q=80" alt="Sevilla">
+                        <div class="destination-overlay">
+                            <h3>Sevilla</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="container">
+                <h2 class="section-title">Contacto</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Información de contacto</h3>
+                        <p>Puedes contactarnos directamente a través de los siguientes medios:</p>
+                        <ul class="contact-list">
+                            <li>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <h4>Dirección</h4>
+                                    <p>Calle Gran Vía 28, 28013 Madrid, España</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h4>Teléfono</h4>
+                                    <p>+34 91 123 45 67</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <h4>Email</h4>
+                                    <p>info@fincas.com</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="contact-form">
+                        <h3>Envíanos un mensaje</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Nombre completo</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Asunto</label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Mensaje</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 class="footer-title">FINCAS</h3>
+                    <p>Encuentra y reserva propiedades en alquiler en los mejores destinos.</p>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-subtitle">Explorar</h4>
+                    <ul class="footer-links">
+                        <li><a href="#properties">Propiedades</a></li>
+                        <li><a href="#destinations">Destinos</a></li>
+                        <li><a href="#how-it-works">Cómo funciona</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-subtitle">Anfitriones</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Conviértete en anfitrión</a></li>
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Comunidad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-subtitle">Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contacto</a></li>
+                        <li><a href="#">Centro de ayuda</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> FINCAS. Todos los derechos reservados.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
