@@ -63,6 +63,12 @@ const Header = async ({ locale }: { locale: string }) => {
                           <DropdownMenuItem asChild>
                             <Link href={`/${locale}/favorites`}>Favoritos</Link>
                           </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/${locale}/reservations`}>Reservas</Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/${locale}/dashboard`}>Panel de control</Link>
+                          </DropdownMenuItem>
 
                           {/* Solo mostrar para anfitriones */}
                           {session.user.role === "HOST" && (
@@ -84,6 +90,16 @@ const Header = async ({ locale }: { locale: string }) => {
               <>
                 <li>
                   <LanguageSwitcher />
+                </li>
+                <li>
+                  <Link href={`/${locale}/dashboard`} className="hover:text-gray-500 mr-2">
+                    Panel de control
+                  </Link>
+                </li>
+                <li>
+                  <Link href={`/${locale}/favorites`} className="hover:text-gray-500 mr-2">
+                    Favoritos
+                  </Link>
                 </li>
                 <li>
                   <Link href={`/${locale}/login`}>

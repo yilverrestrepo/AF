@@ -1,47 +1,28 @@
-import { createInstance } from "i18next"
-import resourcesToBackend from "i18next-resources-to-backend"
-import { initReactI18next } from "react-i18next/initReactI18next"
 import { getRequestConfig } from "next-intl/server"
 
 export const locales = ["es", "en", "fr", "de"]
 export const defaultLocale = "es"
 
 // Carga las traducciones usando dynamic import
-const getResources = (locale: string, namespace: string) =>
-  import(`../locales/${locale}/${namespace}.json`).then((module) => module.default)
-
-export async function createI18nInstance(locale: string, namespaces: string[]) {
-  const i18nInstance = createInstance()
-
-  await i18nInstance
-    .use(initReactI18next)
-    .use(resourcesToBackend((language: string, namespace: string) => getResources(language, namespace)))
-    .init({
-      lng: locale,
-      fallbackLng: defaultLocale,
-      supportedLngs: locales,
-      defaultNS: "common",
-      fallbackNS: "common",
-      ns: namespaces,
-      react: {
-        useSuspense: false,
-      },
-    })
-
-  return i18nInstance
+const getMessages = async (locale: string, namespace: string) => {
+  try {
+    return (await import(`../locales/${locale}/${namespace}.json`)).default
+  } catch (error) {
+    console.error(`Error loading translations for ${locale}/${namespace}:`, error)
+    return {}
+  }
 }
 
-export const getI18nConfig = getRequestConfig(async ({ locale }) => {
+export default getRequestConfig(async ({ locale }) => {
   // Cargar traducciones para el locale actual
-  const messages = {}
+  const messages: Record<string, Record<string, string>> = {}
 
   // Cargar los namespaces comunes
   const namespaces = ["common", "auth", "properties", "reservations"]
 
   for (const namespace of namespaces) {
     try {
-      const translations = await getResources(locale, namespace)
-      messages[namespace] = translations
+      messages[namespace] = await getMessages(locale, namespace)
     } catch (error) {
       console.error(`Error loading translations for ${locale}/${namespace}:`, error)
     }

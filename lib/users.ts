@@ -1,6 +1,7 @@
 import { format } from "date-fns"
 import { es } from "date-fns/locale"
 import type { UserProfile } from "@/types/user"
+import { getUserProfileFromDB } from "./db-utils"
 
 interface HostInfo {
   id: string
@@ -37,24 +38,11 @@ export async function getHostInfo(hostId: string): Promise<HostInfo | null> {
 // Función para obtener el perfil de un usuario
 export async function getUserProfile(userId: string): Promise<UserProfile> {
   try {
-    // En un entorno real, esto se conectaría a la base de datos
-    // Por ahora, devolvemos datos de ejemplo
-    const userProfile: UserProfile = {
-      id: userId,
-      name: "Juan Pérez",
-      email: "juan.perez@example.com",
-      image: "/placeholder.svg?height=200&width=200",
-      role: "USER",
-      memberSince: format(new Date(2021, 3, 10), "MMMM yyyy", { locale: es }),
-      phone: "+34 612 345 678",
-      bio: "Amante de los viajes y las nuevas experiencias. Siempre buscando lugares únicos para visitar.",
-      address: "Calle Principal 123",
-      city: "Madrid",
-      country: "España",
-      zipCode: "28001",
+    const userProfile = await getUserProfileFromDB(userId)
+    return {
+      ...userProfile,
+      memberSince: format(new Date(userProfile.memberSince), "MMMM yyyy", { locale: es }),
     }
-
-    return userProfile
   } catch (error) {
     console.error(`Error al obtener el perfil del usuario ${userId}:`, error)
     // Devolver un perfil vacío en caso de error

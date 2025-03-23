@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter, usePathname } from "@/app/i18n"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import config from "@/next-intl.config"
 
-const locales = ["es", "en", "fr", "de"]
+const locales = config.locales
 
 const languageNames = {
   es: "Español",
@@ -27,7 +28,7 @@ export default function LanguageSwitcher() {
   const isValidLocale = locales.includes(currentLocale)
 
   // Obtener el resto del pathname sin el locale
-  const pathnameWithoutLocale = isValidLocale ? pathname.replace(`/${currentLocale}`, "") || "/" : pathname
+  const pathnameWithoutLocale = pathname
 
   const handleLocaleChange = (newLocale: string) => {
     setIsOpen(false)
@@ -35,7 +36,7 @@ export default function LanguageSwitcher() {
     if (newLocale === currentLocale) return
 
     startTransition(() => {
-      router.push(`/${newLocale}${pathnameWithoutLocale}`)
+      router.push(pathname, { locale: newLocale })
     })
   }
 

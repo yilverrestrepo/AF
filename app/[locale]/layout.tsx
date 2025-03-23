@@ -1,6 +1,6 @@
 import type React from "react"
 import { NextIntlClientProvider } from "next-intl"
-import { getMessages } from "next-intl/server"
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server"
 import { ThemeProvider } from "@/components/theme-provider"
 import ReactQueryProvider from "@/lib/react-query"
 import RegisterSW from "@/components/pwa/RegisterSW"
@@ -15,10 +15,14 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
-  const messages = await getMessages()
+  // Establecer el locale para la solicitud actual
+  unstable_setRequestLocale(locale)
+
+  // Obtener las traducciones
+  const translations = await getTranslations({ locale })
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={translations}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <ReactQueryProvider>
           <RegisterSW />

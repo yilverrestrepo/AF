@@ -13,6 +13,7 @@ import { CalendarIcon } from "lucide-react"
 import { formatPrice } from "@/lib/utils"
 import type { Property } from "@/types/property"
 import { toast } from "@/hooks/use-toast"
+import { useSession } from "next-auth/react"
 
 interface PropertyReservationProps {
   property: Property
@@ -21,6 +22,7 @@ interface PropertyReservationProps {
 
 export default function PropertyReservation({ property, locale }: PropertyReservationProps) {
   const router = useRouter()
+  const { data: session } = useSession()
   const [isLoading, setIsLoading] = useState(false)
   const [checkInOpen, setCheckInOpen] = useState(false)
   const [checkOutOpen, setCheckOutOpen] = useState(false)
@@ -41,6 +43,12 @@ export default function PropertyReservation({ property, locale }: PropertyReserv
   const total = subtotal + serviceFee
 
   const handleReserve = async () => {
+    if (!session) {
+      // Si el usuario no está autenticado, redirigir al login
+      router.push(`/${locale}/login?callbackUrl=/${locale}/properties/${property.id}`)
+      return
+    }
+
     if (!reservation.checkIn || !reservation.checkOut) {
       toast({
         title: "Error de validación",
@@ -190,7 +198,7 @@ export default function PropertyReservation({ property, locale }: PropertyReserv
           disabled={isLoading || !reservation.checkIn || !reservation.checkOut || nights <= 0}
           onClick={handleReserve}
         >
-          {isLoading ? "Procesando..." : "Reservar"}
+          {isLoading ? "Procesando..." : session ? "Reservar" : "Iniciar sesión para reservar"}
         </Button>
 
         <p className="text-center text-sm text-gray-600">No se te cobrará todavía</p>
