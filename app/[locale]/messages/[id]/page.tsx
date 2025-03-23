@@ -9,13 +9,15 @@ export default async function ConversationPage({
 }: {
   params: { id: string; locale: string }
 }) {
+  // Obtener la sesión del usuario
   const session = await getServerSession(authOptions)
 
   if (!session || !session.user) {
-    redirect(`/${params.locale}/login`)
+    // Si no está autenticado, redirigir al login
+    return redirect(`/${params.locale}/login`)
   }
 
-  // Obtener la conversación
+  // Obtener la conversación desde la base de datos
   const conversation = await prisma.conversation.findUnique({
     where: {
       id: params.id,
@@ -36,21 +38,28 @@ export default async function ConversationPage({
   })
 
   if (!conversation) {
-    notFound()
+    // Si no se encuentra la conversación, lanzar 404
+    return notFound()
   }
 
-  // Verificar si el usuario es participante de la conversación
-  const isParticipant = conversation.participants.some((participant) => participant.userId === session.user.id)
+  // Verificar si el usuario actual es un participante de la conversación
+  const isParticipant = conversation.participants.some(
+    (participant) => participant.userId === session.user.id
+  )
 
   if (!isParticipant) {
-    redirect(`/${params.locale}/messages`)
+    // Si no es participante, redirigir a la lista de mensajes
+    return redirect(`/${params.locale}/messages`)
   }
 
   // Obtener el otro participante (no el usuario actual)
-  const otherParticipant = conversation.participants.find((participant) => participant.userId !== session.user.id)
+  const otherParticipant = conversation.participants.find(
+    (participant) => participant.userId !== session.user.id
+  )
 
   if (!otherParticipant) {
-    redirect(`/${params.locale}/messages`)
+    // Si no se encuentra el otro participante, redirigir a la lista de mensajes
+    return redirect(`/${params.locale}/messages`)
   }
 
   return (

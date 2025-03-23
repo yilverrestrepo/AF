@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
@@ -52,7 +52,7 @@ module.exports = {
 	},
 	plugins: [],
   }
-=======
+
 import type { Config } from "tailwindcss"
 
 const config = {
@@ -139,4 +139,4 @@ const config = {
 
 export default config
 
->>>>>>> 07b70d897bbbb8dcc81ecc896f83a8f93e9c7d15
+

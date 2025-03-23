@@ -7,11 +7,7 @@
   "outputDirectory": ".next",
   "regions": ["cdg1"],
   "env": {
-    "NEXTAUTH_URL": {
-      "development": "http://localhost:3000",
-      "preview": "https://fincas-preview.vercel.app",
-      "production": "https://fincas.vercel.app"
-    }
+    "NEXTAUTH_URL": "https://fincas.vercel.app"
   },
   "headers": [
     {
@@ -30,6 +26,13 @@
           "value": "1; mode=block"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/ruta-anterior",
+      "destination": "/ruta-nueva",
+      "permanent": true
     }
   ]
 }

@@ -1,16 +1,15 @@
-<<<<<<< HEAD
-=======
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema
 
->>>>>>> 07b70d897bbbb8dcc81ecc896f83a8f93e9c7d15
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-<<<<<<< HEAD
+
   url      = env("DATABASE_URL")
 }
 
@@ -192,7 +191,7 @@ model Notification {
   createdAt DateTime @default(now())
 
   @@index([userId])
-=======
+
   // Sample DATABASE_URL for development
   // You can use this with a local PostgreSQL instance
   // url      = "postgresql://postgres:password@localhost:5432/fincos?schema=public"
@@ -336,6 +335,6 @@ model Favorite {
   listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 
   @@unique([userId, listingId])
->>>>>>> 07b70d897bbbb8dcc81ecc896f83a8f93e9c7d15
+
 }
 
