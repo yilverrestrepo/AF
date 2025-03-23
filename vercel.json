@@ -30,8 +30,13 @@
   ],
   "redirects": [
     {
+
       "source": "/ruta-anterior",
       "destination": "/ruta-nueva",
+
+      "source": "/old-path",
+      "destination": "/new-path",
+
       "permanent": true
     }
   ]
