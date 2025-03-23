@@ -1,0 +1,48 @@
+{
+  "app_name": "FINCAS",
+  "navigation": {
+    "home": "Home",
+    "properties": "Properties",
+    "favorites": "Favorites",
+    "messages": "Messages",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "logout": "Logout"
+  },
+  "actions": {
+    "search": "Search",
+    "filter": "Filter",
+    "book": "Book",
+    "contact": "Contact",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "add": "Add",
+    "remove": "Remove"
+  },
+  "property": {
+    "title": "Title",
+    "description": "Description",
+    "location": "Location",
+    "price": "Price",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "guests": "Guests",
+    "amenities": "Amenities",
+    "availability": "Availability",
+    "reviews": "Reviews",
+    "host": "Host"
+  },
+  "errors": {
+    "generic": "An error has occurred",
+    "not_found": "Not found",
+    "unauthorized": "Unauthorized",
+    "validation": "Validation error"
+  }
+}
+

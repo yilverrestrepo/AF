@@ -1,0 +1,48 @@
+{
+  "app_name": "FINCAS",
+  "navigation": {
+    "home": "Inicio",
+    "properties": "Propiedades",
+    "favorites": "Favoritos",
+    "messages": "Mensajes",
+    "dashboard": "Panel",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "profile": "Perfil",
+    "logout": "Cerrar sesión"
+  },
+  "actions": {
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "book": "Reservar",
+    "contact": "Contactar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "view": "Ver",
+    "add": "Añadir",
+    "remove": "Eliminar"
+  },
+  "property": {
+    "title": "Título",
+    "description": "Descripción",
+    "location": "Ubicación",
+    "price": "Precio",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "guests": "Huéspedes",
+    "amenities": "Comodidades",
+    "availability": "Disponibilidad",
+    "reviews": "Reseñas",
+    "host": "Anfitrión"
+  },
+  "errors": {
+    "generic": "Ha ocurrido un error",
+    "not_found": "No encontrado",
+    "unauthorized": "No autorizado",
+    "validation": "Error de validación"
+  }
+}
+
