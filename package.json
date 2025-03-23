@@ -1,9 +1,6 @@
 {
-<<<<<<< HEAD
   "name": "fincas",
-=======
   "name": "my-v0-project",
->>>>>>> 07b70d897bbbb8dcc81ecc896f83a8f93e9c7d15
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@auth/prisma-adapter": "^1.0.0",
     "@formatjs/intl-localematcher": "^0.4.0",
     "@prisma/client": "^5.0.0",
@@ -68,10 +64,7 @@
     "typescript": "5.1.6",
     "tailwindcss-animate": "1.0.6"
   }
-}
-
-=======
-    "@hookform/resolvers": "^3.9.1",
+}   "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
     "@radix-ui/react-aspect-ratio": "^1.1.1",
@@ -131,7 +124,7 @@
     "bcryptjs": "latest",
     "stripe": "latest",
     "pusher-js": "latest"
-  },
+  
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "^19",
@@ -140,5 +133,4 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
   }
-}
->>>>>>> 07b70d897bbbb8dcc81ecc896f83a8f93e9c7d15
+
