@@ -44,9 +44,9 @@ export default async function RootLayout({
               <RegisterSW />
               <InstallPrompt />
               <div className="flex flex-col min-h-screen">
-                <Header />
+                <Header locale={locale} />
                 <main className="flex-1">{children}</main>
-                <Footer />
+                <Footer locale={locale} />
               </div>
             </ReactQueryProvider>
           </ThemeProvider>
@@ -55,5 +55,4 @@ export default async function RootLayout({
     </html>
   )
 }
-
 

@@ -62,8 +62,9 @@
     "nodemailer": "latest",
     "@tanstack/react-query": "latest",
     "i18next": "latest",
+    "@prisma/client": "latest",
+    "prisma": "latest",
     "next-auth": "latest",
-    "pusher-js": "latest",
     "@tanstack/react-query-devtools": "latest",
     "stripe": "latest",
     "nanoid": "latest",
@@ -73,9 +74,13 @@
     "next-pwa": "latest",
     "@radix-ui/react-icons": "latest",
     "pusher": "latest",
+    "pusher-js": "latest",
     "i18next-resources-to-backend": "latest",
     "react-i18next": "latest",
-    "next-intl": "latest"
+    "next-intl": "latest",
+    "@auth/prisma-adapter": "latest",
+    "bcryptjs": "latest",
+    "react-icons": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

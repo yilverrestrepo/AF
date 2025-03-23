@@ -30,6 +30,7 @@ export async function middleware(request: NextRequest) {
     "/reservations",
     "/messages",
     "/settings",
+    "/favorites",
   ]
 
   // Verificar si la ruta actual es específica para anfitriones
@@ -38,23 +39,26 @@ export async function middleware(request: NextRequest) {
   // Verificar si la ruta ya incluye un locale
   const pathnameHasLocale = locales.some((locale) => path.startsWith(`/${locale}/`) || path === `/${locale}`)
 
-  // Verificar si la ruta actual requiere autenticación
-  const isProtectedRoute = protectedRoutes.some((route) => path.startsWith(route))
-
-  // Verificar si la ruta actual es específica para anfitriones
-  const isHostRoute = hostRoutes.some((route) => path.startsWith(route))
-
-  // Aplicar i18n si la ruta no tiene locale
-  if (!pathnameHasLocale) {
+  // Si la ruta no tiene locale, redirigir a la ruta con locale
+  if (!pathnameHasLocale && !path.startsWith("/api") && !path.startsWith("/_next")) {
     const locale = getLocale(request)
     const newUrl = new URL(`/${locale}${path}`, request.url)
     newUrl.search = request.nextUrl.search
     return NextResponse.redirect(newUrl)
   }
 
+  // Extraer el locale y la ruta real
+  const locale = pathnameHasLocale ? path.split("/")[1] : defaultLocale
+  const pathWithoutLocale = pathnameHasLocale ? path.replace(`/${locale}`, "") : path
+
+  // Verificar si la ruta actual requiere autenticación
+  const isProtectedRoute = protectedRoutes.some((route) => pathWithoutLocale.startsWith(route))
+
+  // Verificar si la ruta actual es específica para anfitriones
+  const isHostRoute = hostRoutes.some((route) => pathWithoutLocale.startsWith(route))
+
   // Redirigir a login si la ruta está protegida y el usuario no está autenticado
   if (isProtectedRoute && !isAuthenticated) {
-    const locale = getLocale(request)
     const url = new URL(`/${locale}/login`, request.url)
     url.searchParams.set("callbackUrl", path)
     return NextResponse.redirect(url)
@@ -62,7 +66,6 @@ export async function middleware(request: NextRequest) {
 
   // Redirigir si el usuario no es anfitrión pero intenta acceder a rutas de anfitrión
   if (isHostRoute && isAuthenticated && token?.role !== "HOST") {
-    const locale = getLocale(request)
     return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url))
   }
 

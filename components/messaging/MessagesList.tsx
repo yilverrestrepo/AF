@@ -29,9 +29,10 @@ interface Conversation {
 
 interface MessagesListProps {
   conversations: Conversation[]
+  locale: string
 }
 
-export default function MessagesList({ conversations }: MessagesListProps) {
+export default function MessagesList({ conversations, locale }: MessagesListProps) {
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null)
 
   return (
@@ -42,7 +43,7 @@ export default function MessagesList({ conversations }: MessagesListProps) {
             {conversations.map((conversation) => (
               <Link
                 key={conversation.id}
-                href={`/messages/${conversation.id}`}
+                href={`/${locale}/messages/${conversation.id}`}
                 className={`block p-4 hover:bg-gray-50 transition-colors ${
                   selectedConversation === conversation.id ? "bg-gray-50" : ""
                 }`}

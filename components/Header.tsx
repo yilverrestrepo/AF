@@ -11,26 +11,34 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 import LogoutButton from "./LogoutButton"
+import LanguageSwitcher from "./LanguageSwitcher"
+import NotificationsDropdown from "./notifications/NotificationsDropdown"
 
-const Header = async () => {
+const Header = async ({ locale }: { locale: string }) => {
   const session = await getServerSession(authOptions)
 
   return (
     <header className="bg-white py-4 shadow-sm">
       <div className="container mx-auto flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold">
-          Nextbnb
+        <Link href={`/${locale}`} className="text-2xl font-bold">
+          FINCAS
         </Link>
 
         <nav>
           <ul className="flex items-center space-x-4">
             <li>
-              <Link href="/properties" className="hover:text-gray-500">
-                Properties
+              <Link href={`/${locale}/properties`} className="hover:text-gray-500">
+                Propiedades
               </Link>
             </li>
             {session?.user ? (
               <>
+                <li>
+                  <NotificationsDropdown />
+                </li>
+                <li>
+                  <LanguageSwitcher />
+                </li>
                 <li>
                   <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -41,40 +49,48 @@ const Header = async () => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
                       <DropdownMenuItem asChild>
-                        <Link href="/profile">Profile</Link>
+                        <Link href={`/${locale}/profile`}>Perfil</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/properties/create">List property</Link>
+                        <Link href={`/${locale}/properties/create`}>Publicar propiedad</Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       {session?.user && (
                         <>
                           <DropdownMenuItem asChild>
-                            <Link href="/messages">Mensajes</Link>
+                            <Link href={`/${locale}/messages`}>Mensajes</Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/${locale}/favorites`}>Favoritos</Link>
                           </DropdownMenuItem>
 
                           {/* Solo mostrar para anfitriones */}
                           {session.user.role === "HOST" && (
                             <DropdownMenuItem asChild>
-                              <Link href="/dashboard/analytics">Análisis</Link>
+                              <Link href={`/${locale}/dashboard/analytics`}>Análisis</Link>
                             </DropdownMenuItem>
                           )}
                         </>
                       )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem>
-                        <LogoutButton />
+                        <LogoutButton locale={locale} />
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </li>
               </>
             ) : (
-              <li>
-                <Link href="/login">
-                  <Button>Sign In</Button>
-                </Link>
-              </li>
+              <>
+                <li>
+                  <LanguageSwitcher />
+                </li>
+                <li>
+                  <Link href={`/${locale}/login`}>
+                    <Button>Iniciar sesión</Button>
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
         </nav>

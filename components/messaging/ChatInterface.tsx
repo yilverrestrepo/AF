@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useEffect, useRef } from "react"
 import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import Pusher from "pusher-js"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -24,6 +25,7 @@ interface ChatInterfaceProps {
   recipientId: string
   recipientName: string
   recipientImage?: string
+  locale: string
 }
 
 export default function ChatInterface({
@@ -31,8 +33,10 @@ export default function ChatInterface({
   recipientId,
   recipientName,
   recipientImage,
+  locale,
 }: ChatInterfaceProps) {
   const { data: session } = useSession()
+  const router = useRouter()
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -107,15 +111,20 @@ export default function ChatInterface({
   return (
     <div className="flex flex-col h-[600px] border rounded-lg overflow-hidden">
       <div className="p-4 border-b bg-white">
-        <div className="flex items-center">
-          <Avatar className="h-10 w-10 mr-3">
-            <AvatarImage src={recipientImage} alt={recipientName} />
-            <AvatarFallback>{recipientName.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <div>
-            <h3 className="font-medium">{recipientName}</h3>
-            <p className="text-sm text-gray-500">{messages.length > 0 ? "Activo ahora" : "Envía un mensaje"}</p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <Avatar className="h-10 w-10 mr-3">
+              <AvatarImage src={recipientImage} alt={recipientName} />
+              <AvatarFallback>{recipientName.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <div>
+              <h3 className="font-medium">{recipientName}</h3>
+              <p className="text-sm text-gray-500">{messages.length > 0 ? "Activo ahora" : "Envía un mensaje"}</p>
+            </div>
           </div>
+          <Button variant="ghost" onClick={() => router.push(`/${locale}/messages`)}>
+            Volver
+          </Button>
         </div>
       </div>
 
